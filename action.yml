@@ -1,0 +1,48 @@
+name: Deploy a manpage to GitHub pages
+
+inputs:
+  manpage:
+    description: Manpage file
+    required: true
+  stylesheet:
+    description: CSS stylesheet URL
+    default: https://raw.githubusercontent.com/acuteenvy/acuteenvy.github.io/master/manpages.css
+  title:
+    description: Page title
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v3
+
+    - name: Install pandoc
+      shell: bash
+      run: |
+        curl --location --output pandoc.deb https://github.com/jgm/pandoc/releases/download/3.1.2/pandoc-3.1.2-1-amd64.deb
+        sudo dpkg --install pandoc.deb
+
+    - name: Download the stylesheet
+      shell: bash
+      run: curl --output style.css ${{ inputs.stylesheet }}
+
+    - name: Build the website from the manpage and CSS
+      shell: bash
+      run: |
+        mkdir github-pages
+        pandoc --to markdown "${{ inputs.manpage }}" | \
+        pandoc --from markdown+autolink_bare_uris --metadata title="${{ inputs.title }}" \
+        --embed-resources --standalone --css style.css --output github-pages/index.html
+
+    - name: Setup Pages
+      uses: actions/configure-pages@v3
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v1
+      with:
+        path: github-pages
+
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v2
