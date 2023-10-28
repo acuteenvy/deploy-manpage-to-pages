@@ -15,12 +15,12 @@ runs:
   using: "composite"
   steps:
     - name: Checkout the repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Install pandoc
       shell: bash
       run: |
-        curl --location --output pandoc.deb https://github.com/jgm/pandoc/releases/download/3.1.2/pandoc-3.1.2-1-amd64.deb
+        curl --location --output pandoc.deb https://github.com/jgm/pandoc/releases/download/3.1.9/pandoc-3.1.9-1-amd64.deb
         sudo dpkg --install pandoc.deb
 
     - name: Download the stylesheet
@@ -39,7 +39,7 @@ runs:
       uses: actions/configure-pages@v3
 
     - name: Upload artifact
-      uses: actions/upload-pages-artifact@v1
+      uses: actions/upload-pages-artifact@v2
       with:
         path: github-pages
 
