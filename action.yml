@@ -20,7 +20,7 @@ runs:
     - name: Install pandoc
       shell: bash
       run: |
-        curl --location --output pandoc.deb https://github.com/jgm/pandoc/releases/download/3.6.2/pandoc-3.6.2-1-amd64.deb
+        curl --location --output pandoc.deb https://github.com/jgm/pandoc/releases/download/3.6.4/pandoc-3.6.4-1-amd64.deb
         sudo dpkg --install pandoc.deb
 
     - name: Download the stylesheet
