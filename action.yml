@@ -1,8 +1,8 @@
-name: Deploy a manpage to GitHub pages
+name: Deploy a man page to GitHub pages
 
 inputs:
   manpage:
-    description: Manpage file
+    description: Man page file
     required: true
   stylesheet:
     description: CSS stylesheet URL
@@ -27,15 +27,16 @@ runs:
       shell: bash
       run: curl --output style.css ${{ inputs.stylesheet }}
 
-    - name: Build the website from the manpage and CSS
+    - name: Build the website from the man page and CSS
       shell: bash
       run: |
         mkdir github-pages
-        pandoc --to markdown "${{ inputs.manpage }}" | \
-        pandoc --from markdown+autolink_bare_uris --metadata title="${{ inputs.title }}" \
-        --embed-resources --standalone --css style.css --output github-pages/index.html
+        pandoc --verbose --embed-resources --standalone \
+        --css style.css --from man --output github-pages/index.html \
+        --metadata title="${{ inputs.title }}" --lua-filter autolink.lua \
+        ${{ inputs.manpage }}
 
-    - name: Setup Pages
+    - name: Set up Pages
       uses: actions/configure-pages@v5
 
     - name: Upload artifact
