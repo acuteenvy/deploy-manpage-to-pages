@@ -33,8 +33,8 @@ runs:
         mkdir github-pages
         pandoc --verbose --embed-resources --standalone \
         --css style.css --from man --output github-pages/index.html \
-        --metadata title="${{ inputs.title }}" --lua-filter autolink.lua \
-        ${{ inputs.manpage }}
+        --lua-filter "${{ github.action_path }}/autolink.lua" \
+        --metadata title="${{ inputs.title }}" ${{ inputs.manpage }}
 
     - name: Set up Pages
       uses: actions/configure-pages@v5
