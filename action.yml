@@ -6,7 +6,7 @@ inputs:
     required: true
   stylesheet:
     description: CSS stylesheet URL
-    default: https://raw.githubusercontent.com/acuteenvy/acuteenvy.github.io/main/manpages.css
+    default: https://raw.githubusercontent.com/acuteenvy/deploy-manpage-to-pages/main/manpages.css
   title:
     description: Page title
     required: true
