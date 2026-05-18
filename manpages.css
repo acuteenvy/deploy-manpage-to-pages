@@ -34,9 +34,12 @@ h1 {
     padding: 10px 0;
 }
 
-strong,
-em {
+strong {
     color: #b794f4;
+}
+
+em {
+    color: #aaaaaa;
 }
 
 code {
@@ -47,6 +50,10 @@ code {
     font-family: 'Fira Code', monospace;
     font-size: 0.8em;
     line-height: 1.5em;
+}
+
+th, td {
+    padding-right: 10px;
 }
 
 a {
